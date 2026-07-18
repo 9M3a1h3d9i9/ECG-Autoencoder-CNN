@@ -216,3 +216,38 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+
+# برای نادیده گرفتن فایل حجیم دیتاست
+# To ignore dataset 
+# Virtual Environment
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dataset
+
+data/raw/*
+data/interim/*
+data/processed/*
+
+# Keep folders
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# Models
+
+models/*
+!models/.gitkeep
+
+# Outputs
+
+outputs/*
+!outputs/.gitkeep
