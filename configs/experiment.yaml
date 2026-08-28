@@ -1,0 +1,16 @@
+seed: 42
+window_size: 256
+normalize: true
+train_ratio: 0.70
+val_ratio: 0.15
+batch_size: 256
+epochs: 30
+learning_rate: 0.001
+patience: 7
+models:
+  cnn:
+    dropout: 0.20
+  hybrid:
+    dropout: 0.20
+  autoencoder:
+    latent_channels: 32
