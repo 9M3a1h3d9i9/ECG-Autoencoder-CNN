@@ -6,6 +6,6 @@ scikit-learn>=1.3
 wfdb>=4.1
 pytest>=8.0
 PyYAML>=6.0
-# Install a CPU or CUDA build of PyTorch appropriate for your platform:
-# https://pytorch.org/get-started/locally/
-torch>=2.2
+# TensorFlow is required for model training/evaluation.
+# Install the platform-appropriate TensorFlow build separately if needed.
+tensorflow>=2.15,<3
