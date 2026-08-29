@@ -10,17 +10,12 @@ import wfdb
 @dataclass(frozen=True)
 class ECGRecord:
     """A validated MIT-BIH record and its annotation prefix."""
-
     name: str
     path: Path
 
 
 class MITBIHRecordLoader:
-    """Discover and load local MIT-BIH Arrhythmia Database records.
-
-    The loader keeps filesystem logic separate from preprocessing so that
-    experiments can be reproduced from an explicit list of record IDs.
-    """
+    """Discover and load local MIT-BIH Arrhythmia Database records."""
 
     def __init__(self, data_dir: str | Path) -> None:
         self.data_dir = Path(data_dir).expanduser().resolve()
@@ -32,14 +27,9 @@ class MITBIHRecordLoader:
             raise NotADirectoryError(f"Dataset path is not a directory: {self.data_dir}")
 
     def list_records(self) -> list[str]:
-        """Return sorted record IDs that contain both signal and header files."""
+        """Return sorted record IDs containing signal and header files."""
         self.validate()
-        records = []
-        for hea in self.data_dir.glob("*.hea"):
-            stem = hea.stem
-            if (self.data_dir / f"{stem}.dat").exists():
-                records.append(stem)
-        return sorted(records)
+        return sorted(p.stem for p in self.data_dir.glob("*.hea") if (self.data_dir / f"{p.stem}.dat").exists())
 
     def records(self, names: Iterable[str] | None = None) -> list[ECGRecord]:
         available = set(self.list_records())
@@ -57,3 +47,17 @@ class MITBIHRecordLoader:
         if not annotation_path.exists():
             raise FileNotFoundError(f"Annotation not found: {annotation_path}")
         return wfdb.rdann(str(self.data_dir / record_name), extension)
+
+
+def discover_records(data_dir: str | Path) -> list[Path]:
+    """Compatibility helper returning record prefixes used by preprocessing."""
+    loader = MITBIHRecordLoader(data_dir)
+    return [data_dir_path.path for data_dir_path in loader.records()]
+
+
+def load_record(record_path: str | Path):
+    """Load a record and its `atr` annotations from a record prefix."""
+    path = Path(record_path)
+    record = wfdb.rdrecord(str(path))
+    annotation = wfdb.rdann(str(path), "atr")
+    return record, annotation
