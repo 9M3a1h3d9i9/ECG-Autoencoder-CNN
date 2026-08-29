@@ -1,283 +1,121 @@
-# ECG Arrhythmia Classification using a Hybrid Autoencoder-CNN
+# ECG Arrhythmia Classification — Autoencoder, CNN & Hybrid Models
 
-> A research-oriented implementation and educational reproduction of the IEEE paper:
-> **"Hybrid Autoencoder-CNN Model for Accurate ECG Arrhythmia Classification Using the MIT-BIH Dataset" (IEEE GCWCN 2025)**
+> A research-oriented and reproducible study of ECG arrhythmia classification using the MIT-BIH Arrhythmia Database.
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
-![Status](https://img.shields.io/badge/Status-In%20Progress-orange)
-![License](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/Status-Active%20Development-orange)
 ![Research](https://img.shields.io/badge/Type-Research%20Project-red)
 
----
+## Overview
 
-# Overview
+This project builds a modular pipeline for ECG signal processing and arrhythmia classification. The experimental plan compares three model families:
 
-This repository documents the complete implementation and educational reproduction of an IEEE research paper on **ECG Arrhythmia Classification** using a **Hybrid Autoencoder-CNN** architecture.
+1. **CNN baseline**
+2. **Autoencoder-based representation learning**
+3. **Hybrid Autoencoder + CNN model**
 
-Unlike many repositories that only provide source code, this project is designed as an **educational research notebook**.
+The repository is designed to make preprocessing, training, evaluation, and experiment artifacts traceable and reproducible.
 
-Every implementation step is accompanied by explanations covering:
+## Dataset
 
-- Biomedical signal processing concepts
-- ECG fundamentals
-- Dataset exploration
-- Signal preprocessing
-- Deep learning implementation
-- Engineering decisions
-- Paper reproduction
+The experiments use the **MIT-BIH Arrhythmia Database** from PhysioNet. The dataset is not included in this repository.
 
-The objective is not only to reproduce the reported results, but also to understand every stage of the pipeline.
+Place the downloaded records under:
 
----
+```text
+data/raw/
+```
 
-# Project Objectives
+## Pipeline
 
-- Reproduce the proposed IEEE methodology
-- Understand every preprocessing step
-- Learn Biomedical Signal Processing (BSP)
-- Build reusable Python modules
-- Develop a professional research-oriented GitHub repository
-- Follow software engineering best practices
+```text
+MIT-BIH
+   ↓
+WFDB Loading
+   ↓
+Signal Validation
+   ↓
+Preprocessing
+   ↓
+Heartbeat Segmentation
+   ↓
+┌───────────────┬──────────────────┬─────────────────┐
+│ CNN Baseline  │ Autoencoder      │ Hybrid AE + CNN │
+└───────────────┴──────────────────┴─────────────────┘
+   ↓
+Evaluation
+   ↓
+Metrics + Confusion Matrix + Artifacts
+```
 
----
+## Evaluation Plan
 
-# Paper Information
+The experiment layer is intended to report:
 
-**Title**
+- Accuracy
+- Precision
+- Recall / Sensitivity
+- F1-score
+- Class-wise precision, recall, and F1
+- Confusion matrix
+- Model comparison
+- Training history
 
-Hybrid Autoencoder-CNN Model for Accurate ECG Arrhythmia Classification Using the MIT-BIH Dataset
+### Research Integrity
 
-**Conference**
+**No final performance percentage is claimed until the experiment is actually executed on the MIT-BIH data.** This repository separates implemented infrastructure from verified experimental results.
 
-IEEE GCWCN 2025
+## Current Status
 
-**Problem Domain**
+**Active development.**
 
-Biomedical Signal Processing (BSP)
+Implemented infrastructure includes the project structure, dataset integration direction, modular source layout, tests, and CI foundations. The complete experimental comparison remains dependent on executing the pipeline with the real dataset.
 
-ECG Arrhythmia Classification
+## Planned Research Milestones
 
-Deep Learning
+- [x] Repository and modular architecture
+- [x] MIT-BIH data-loading foundation
+- [x] Validation and test infrastructure
+- [x] CI foundation
+- [ ] End-to-end MIT-BIH experiment
+- [ ] CNN baseline training
+- [ ] Autoencoder training
+- [ ] Hybrid model training
+- [ ] Final comparative evaluation
+- [ ] Reproducible experiment artifacts
 
-Computer-Aided Diagnosis (CAD)
-
----
-
-# Current Progress
-
-Project Status:
-
-- [x] Project initialized
-- [x] Repository structure created
-- [x] Python environment configured
-- [x] MIT-BIH dataset integrated
-- [x] WFDB data loader implemented
-- [x] First ECG signal visualization
-- [ ] Exploratory Data Analysis
-- [ ] Signal preprocessing
-- [ ] Heartbeat segmentation
-- [ ] Autoencoder
-- [ ] CNN classifier
-- [ ] Hybrid model
-- [ ] Evaluation
-- [ ] Paper reproduction
-
----
-
-# Repository Structure
+## Repository Structure
 
 ```text
 ECG-Autoencoder-CNN/
-
 ├── configs/
 ├── data/
 │   ├── raw/
 │   ├── interim/
 │   └── processed/
-│
 ├── docs/
 ├── models/
 ├── notebooks/
-│   └── ECG_Arrhythmia_Classification.ipynb
-│
 ├── outputs/
 ├── src/
-│   └── dataset.py
-│
 ├── tests/
-│
-├── README.md
 ├── requirements.txt
-└── .gitignore
+└── README.md
 ```
 
----
+## Engineering Principles
 
-# Dataset
+- Modular design
+- Reproducible research
+- Explicit experiment configuration
+- Automated testing
+- Continuous Integration
+- No unverified claims
 
-This project uses the **MIT-BIH Arrhythmia Database**.
+## Technology
 
-Official Source:
+Python • NumPy • Pandas • SciPy • Scikit-learn • WFDB • TensorFlow/Keras • Matplotlib
 
-https://physionet.org/content/mitdb/
+## Author
 
-After downloading the dataset, extract all files into:
-
-```text
-data/raw/
-```
-
-Expected structure:
-
-```text
-data/raw/
-
-100.dat
-100.hea
-100.atr
-
-101.dat
-101.hea
-101.atr
-
-...
-```
-
-The dataset is **not included** in this repository.
-
----
-
-# Technologies
-
-- Python
-- NumPy
-- Pandas
-- Matplotlib
-- SciPy
-- Scikit-learn
-- WFDB
-- Jupyter Notebook
-
-Future stages:
-
-- NeuroKit2
-- TensorFlow / Keras
-- PyTorch (comparison)
-- BioSPPy
-
----
-
-# Educational Notebook
-
-The notebook is developed progressively.
-
-Each section includes
-
-- theoretical explanation
-- engineering discussion
-- implementation
-- visualization
-- interpretation
-
-The notebook is intended to serve as both
-
-- project implementation
-- learning material
-
----
-
-# Engineering Philosophy
-
-This repository follows the principles of
-
-- Reproducible Research
-- Research Engineering
-- Modular Software Design
-- Conventional Commits
-- Clean Code
-- Educational Documentation
-
----
-
-# Git Workflow
-
-The project uses Conventional Commits.
-
-Examples:
-
-```text
-feat(dataset): implement MIT-BIH loader
-
-feat(eda): add annotation visualization
-
-docs: update README
-
-fix(preprocessing): correct normalization
-
-refactor(dataset): improve loader interface
-```
-
----
-
-# Planned Modules
-
-```
-src/
-
-dataset.py
-
-eda.py
-
-preprocessing.py
-
-segmentation.py
-
-features.py
-
-autoencoder.py
-
-cnn.py
-
-train.py
-
-evaluate.py
-
-utils.py
-```
-
----
-
-# Future Improvements
-
-- Kalman filtering
-- Heartbeat segmentation
-- Autoencoder implementation
-- CNN implementation
-- Hybrid architecture
-- Model evaluation
-- Confusion matrix
-- TensorBoard integration
-- Experiment tracking
-- Docker support
-
----
-
-# Author
-
-Mahdi Shafighi
-
-M.Sc. Student in Artificial Intelligence
-
-University Project — Biomedical Signal Processing
-
----
-
-# Acknowledgment
-
-This repository is developed for educational and research purposes.
-
-Special thanks to
-
-- PhysioNet
-- WFDB Developers
-- IEEE Authors
+Mohammad Mahdi Shafighi — M.Sc. Artificial Intelligence
